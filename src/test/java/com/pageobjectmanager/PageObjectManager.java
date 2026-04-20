@@ -5,18 +5,27 @@ import com.pageobjectmodel.LoginPage;
 import com.pageobjectmodel.AddToCart;
 import com.pageobjectmodel.AddressPage;
 import com.pageobjectmodel.SearchBox;
-import com.utility.FileReaderManager;
+import com.testNg.ParameterizationClass;
+import com.utility.FileReaderMananger;
 import com.utility.ReadExcelData;
 
 public class PageObjectManager {
 	
 	private LoginPage loginPage;
-	private FileReaderManager fileReader;
+	private FileReaderMananger fileReader;
 	private static PageObjectManager pageObjectManager;
 	private SearchBox searchBox;
 	private AddressPage productStore;
 	private ReadExcelData readExcelData;
 	private AddToCart addToCart;
+	private ParameterizationClass parameter;
+	
+	
+	public ParameterizationClass getParameter() {
+		if(parameter==null)
+			parameter = new ParameterizationClass();
+		return parameter;
+	}
 	
 	
 	public AddToCart getAddToCart() {
@@ -42,10 +51,10 @@ public class PageObjectManager {
 		}
 		return loginPage;
 	}
-	public FileReaderManager getFileReader()
+	public FileReaderMananger getFileReader()
 	{
 		if(fileReader== null) {
-			fileReader = new FileReaderManager();
+			fileReader = new FileReaderMananger();
 		}
 		return fileReader;
 	}

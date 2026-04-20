@@ -1,12 +1,9 @@
 package com.pageobjectmodel;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
 
 import com.base.Base_Class;
 import com.interfaceelements.AddressPageInterfaceElements;
-import com.interfaceelements.LoginPageInterfaceElements;
 import com.pageobjectmanager.PageObjectManager;
 
 public class AddressPage extends Base_Class implements AddressPageInterfaceElements {

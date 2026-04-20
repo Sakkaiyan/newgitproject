@@ -1,7 +1,6 @@
 package com.runner;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+
 
 import com.base.Base_Class;
 import com.pageobjectmanager.PageObjectManager;

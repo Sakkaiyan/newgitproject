@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="SuitE">
+  <test thread-count="5" name="Test">
+  <groups>
+  <run>
+  <define name = "MOBILE">
+  <exclude name="BIKE"></exclude>
+  <exclude name="CAR"></exclude>
+  </run>
+  </groups>
+    <classes>
+      <class name="com.testNg.Grouping"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- SuitE -->

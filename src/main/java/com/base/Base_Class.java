@@ -1,11 +1,15 @@
 package com.base;
-
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.FileHandler;
+
 import org.junit.Assert;
+import org.junit.platform.suite.api.Select;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -16,14 +20,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 public abstract class Base_Class {
-	
-	public static WebDriver driver;
 	
 	   protected static WebDriver browserlaunch(String browserName) {
 			try {
@@ -47,7 +46,9 @@ public abstract class Base_Class {
 		protected static void getUrl(String url) {
 			try {
 				driver.get(url);
-			} catch(Exception e) {
+			} catch(Exception e)
+			{
+				System.out.println(e);
 				Assert.fail("ERROR OCCURED : GET URL");
 			}
 		}
@@ -56,17 +57,16 @@ public abstract class Base_Class {
 			try {
 				element.sendKeys(input);
 			}catch(Exception e) {
-				System.out.println(e);
 				Assert.fail("ERROR OCCURED : PASS INPUT");
 			}
+	
 		}
 		
 		protected static void clickElement(WebElement element) {
 			try {
 				element.click();
 			}catch(Exception e) {
-				System.out.println(e);
-				Assert.fail("ERROR OCCURED : CLICK ELEMENT");
+	            Assert.fail("ERROR OCCURED : CLICK ELEMENT");
 			}
 		}
 		
@@ -457,7 +457,7 @@ public abstract class Base_Class {
 		protected static void scrollUp(int range) {
 			try {
 				JavascriptExecutor js = (JavascriptExecutor)driver;
-				js.executeScript("window.scrollBy(0,-range);");
+				js.executeScript("window.scrollBy(0,-range)");
 			}catch(Exception e) {
 				Assert.fail("ERROR OCCURED : SCROLL UP");
 			}
@@ -466,13 +466,26 @@ public abstract class Base_Class {
 		protected static void scrollDown(int range) {
 			try {
 				JavascriptExecutor js = (JavascriptExecutor)driver;
-				js.executeScript("window.scrollBy(0,+range);");
+				js.executeScript("window.scrollBy(0,arguments[0]);",range);
 			}catch(Exception e) {
 				Assert.fail("ERROR OCCURED : SCROLL DOWN");
 			}
 		}
 		
-		protected static void takeScreenshot(String filePath) {
+		protected static void scrollIntoView(WebElement element) {
+			 try {
+			        JavascriptExecutor js = (JavascriptExecutor) driver;
+			        js.executeScript(
+			            "arguments[0].scrollIntoView({behavior:'smooth', block:'center'});",
+			            element
+			        );
+			        Thread.sleep(300); // allow UI repaint
+			    } catch (Exception e) {
+			        Assert.fail("ERROR: OCCURRED DURING SCROLL INTO VIEW JAVASCRIPT");
+			    }
+		}
+		
+		protected static void takeScreen(String filePath) {
 	    	 try {
 	             File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 	             File destFile = new File(filePath);
@@ -481,9 +494,41 @@ public abstract class Base_Class {
 	         } catch (Exception e) {
 	             Assert.fail("ERROR:OCCURED DURING SCREENSHOT");
 	         }
-	     
 		}
-	}	 
+	    	 
+	    protected static void validation(WebElement element, String expected)
+	    {
+	    	try {
+	    		String text = element.getText();
+	    		System.out.println(text);
+	    Assert.assertEquals(element.getText(),expected);
+	    		} catch (Exception e) {
+				Assert.fail("ERROR : OCCUR DURING VALIDATATION");
+			}
+	    }
+	    	
+	    public String takeScreenShot() throws IOException{
+	    	 
+	    	try {
+	    		
+	    		TakesScreenshot screenshot = (TakesScreenshot) driver;
+	    		String timeStamp = new SimpleDateFormat("yyyMMDD_HHmmss").format(new Date());
+	    		File scrfile = screenshot.getScreenshotAs(OutputType.FILE);
+	    		File destfile = new File("ScreenShot\\.png" + "_" + timeStamp + ".png");
+	    	    FileHandler.copy(scrfile, destfile);
+	    	   return destfile.getAbsolutePath();
+	           }
+		        catch (Exception e) {
+				Assert.fail("ERROR : OCCUR DURING TAKE SCREENSHOT");
+			}
+			return null;
+	    
+	    	
+	    
+	    }
+		}
+	 
 	
 	
 
+	    

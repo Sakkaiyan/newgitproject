@@ -3,12 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.testNg.CrossBrowserLaunch">
+      <class name="com.testNg.ParameterizationClass">
         <methods>
-          <include name="edgeBrowser"/>
-          <include name="operaMini"/>
+          <include name="loginTest"/>
         </methods>
-      </class> <!-- com.testNg.CrossBrowserLaunch -->
+      </class> <!-- com.testNg.ParameterizationClass -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

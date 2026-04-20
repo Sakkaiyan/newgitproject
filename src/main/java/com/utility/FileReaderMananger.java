@@ -9,7 +9,7 @@ import org.junit.Assert;
 
 
 
-public class FileReaderManager {
+public class FileReaderMananger {
 	private static FileInputStream fileInputStream;
 	private static Properties property;
 	public static void setupProperty()
